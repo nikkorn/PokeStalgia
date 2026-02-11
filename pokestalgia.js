@@ -5,8 +5,7 @@
 function onTabLoad() {
 	// A pokemon should not spawn for every tab load, only 1 in 5.
 	if (Math.floor(Math.random() * 5) !== 0) {
-		// TODO Undo!
-		// return;
+		return;
 	}
 	
 	// Send a request for a random pokemon.

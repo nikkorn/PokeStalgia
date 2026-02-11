@@ -29,11 +29,16 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
  * Listen for messages from other scripts.
  */
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
-
-  // A pokemon was caught
-  if (msg.action === "onCatch") {
+  // A pokemon was seen and caught.
+  if (msg.action === "onCatchSuccess") {
     repository.addCaughtPokemon(msg.pokemonId, msg.pokemonLevel);
     pokemonGenerator.populateTicketCache();
+    return; // no async response
+  }
+
+  // A pokemon was seen but not caught.
+  if (msg.action === "onCatchFail") {
+    // TODO Add a "seen" state for pokemon.
     return; // no async response
   }
 

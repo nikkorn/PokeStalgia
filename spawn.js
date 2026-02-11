@@ -33,24 +33,20 @@ function Spawn(id, level, target) {
 
     var onCaptureAttempt = function () {
         if (captureBar && captureBar.isInCapturePosition()) {
-            chrome.runtime.sendMessage(
-                { action: "onCatch", pokemonId: id, pokemonLevel: level },
-                function () {
-                    if (chrome.runtime.lastError) {
-                        return;
-                    }
-
-                    if (target.contains(spriteContainer)) {
-                        target.removeChild(spriteContainer);
-                    }
-
-                    hideCaptureBar();
-                }
-            );
+            chrome.runtime.sendMessage({ action: "onCatchSuccess", pokemonId: id, pokemonLevel: level });
+        } else {
+            chrome.runtime.sendMessage({ action: "onCatchFail", pokemonId: id, pokemonLevel: level });
         }
+
+        if (target.contains(spriteContainer)) {
+            target.removeChild(spriteContainer);
+        }
+
+        hideCaptureBar();
     };
 
     var showCaptureBar = function () {
+        // TODO Update to pass difficulty through.
         captureBar = new CaptureBar("easy");
         spriteContainer.appendChild(captureBar.getCaptureBarElement());
         captureBar.startPointerTick();
