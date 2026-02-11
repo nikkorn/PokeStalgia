@@ -24,8 +24,14 @@ function PokedexRepository () {
             }
             cachedCaptureDetails = detailsContainer;
             // We need to notify listeners that the capture details have changed.
-            chrome.runtime.sendMessage({ action: "onCaptureDetailsUpdated", details: cachedCaptureDetails }, function() {}); 
-            // Update the trainer level which is dependent on the caught pokemon.
+            chrome.runtime.sendMessage(
+                { action: "onCaptureDetailsUpdated", details: cachedCaptureDetails },
+                function () {
+                    // Ignore if nobody is listening (common in MV3)
+                    void chrome.runtime.lastError;
+                }
+            );
+// Update the trainer level which is dependent on the caught pokemon.
             calculateTrainerLevel();
         });
     };

@@ -31,7 +31,7 @@ function CaptureBar(difficulty) {
         // Create the capture bar pointer element.
         captureBarPointerElement           = document.createElement("img");
         captureBarPointerElement.className = "capture-bar-pointer";
-	    captureBarPointerElement.setAttribute("src", chrome.extension.getURL("resources/capture_bar_pointer.png"));
+	    captureBarPointerElement.setAttribute("src", chrome.runtime.getURL("resources/capture_bar_pointer.png"));
         captureBarElement.appendChild(captureBarPointerElement);
     };
 

@@ -4,7 +4,12 @@
  */
 function onPokedexOpen() {
     // When the page is opened we need to send a request for capdute data from our backgrond script.
-    chrome.runtime.sendMessage({ action: "pokedexDataRequest" }, function(data) {
+    chrome.runtime.sendMessage({ action: "pokedexDataRequest" }, function (data) {
+        if (chrome.runtime.lastError) {
+            // Background/service worker not available
+            return;
+        }
+
         populatePokedex(data);
     }); 
 }
@@ -69,7 +74,7 @@ function populateTrainerStats(level, caught) {
 function onPokedexEntryClick(pokemon, captureData) {
     // Create the pokmeon image to display.
     var image       = document.createElement("IMG");
-    var spriteURL   = chrome.extension.getURL("resources/sprites/" + pokemon.id + ".png");
+    var spriteURL   = chrome.runtime.getURL("resources/sprites/" + pokemon.id + ".png");
     image.className = "pokedex-pokemon-image";
 	image.setAttribute("src", spriteURL);
     // Clear any previous image.
