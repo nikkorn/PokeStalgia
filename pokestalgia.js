@@ -25,7 +25,7 @@ function onTabLoad() {
       var targetDiv = divs[Math.floor(Math.random() * divs.length)];
 
       // Create our spawned pokemon.
-      new Spawn(winner.pokemon.id, winner.level, targetDiv);
+      new Spawn(winner.pokemon.id, winner.level, winner.pokemon.catchDifficulty, targetDiv);
     },
   );
 }

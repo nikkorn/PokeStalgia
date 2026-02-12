@@ -1,7 +1,7 @@
 /**
  * A spawned pokemon.
  */
-function Spawn(id, level, target) {
+function Spawn(id, level, captureDifficulty, target) {
   var sprite;
   var spriteContainer;
   var captureBar;
@@ -54,8 +54,7 @@ function Spawn(id, level, target) {
   };
 
   var showCaptureBar = function () {
-    // TODO Update to pass difficulty through.
-    captureBar = new CaptureBar("easy");
+    captureBar = new CaptureBar(captureDifficulty);
     spriteContainer.appendChild(captureBar.getCaptureBarElement());
     captureBar.startPointerTick();
   };
