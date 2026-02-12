@@ -1,35 +1,36 @@
-
 /**
  * Handle a tab load event.
  */
 function onTabLoad() {
-	// A pokemon should not spawn for every tab load, only 1 in 5.
-	if (Math.floor(Math.random() * 5) !== 0) {
-		return;
-	}
-	
-	// Send a request for a random pokemon.
-	chrome.runtime.sendMessage({ action: "requestPokemonDraw" }, function (winner) {
-		if (chrome.runtime.lastError) {
-			return;
-		}
+  // A pokemon should not spawn for every tab load, only 1 in 5.
+  if (Math.floor(Math.random() * 5) !== 0) {
+    return;
+  }
 
-		// Get all divs in the DOM.
-		var divs = document.getElementsByTagName("div");
+  // Send a request for a random pokemon.
+  chrome.runtime.sendMessage(
+    { action: "requestPokemonDraw" },
+    function (winner) {
+      if (chrome.runtime.lastError) {
+        return;
+      }
 
-		// If there are no divs then give up.
-		if (divs.length === 0) 
-			return;
+      // Get all divs in the DOM.
+      var divs = document.getElementsByTagName("div");
 
-		// Get a random div to inject our pokemon into.
-		var targetDiv = divs[Math.floor(Math.random() * divs.length)];
+      // If there are no divs then give up.
+      if (divs.length === 0) return;
 
-		// Create our spawned pokemon.
-		new Spawn(winner.pokemon.id, winner.level, targetDiv);
-	}); 
-};
+      // Get a random div to inject our pokemon into.
+      var targetDiv = divs[Math.floor(Math.random() * divs.length)];
+
+      // Create our spawned pokemon.
+      new Spawn(winner.pokemon.id, winner.level, targetDiv);
+    },
+  );
+}
 
 // Run automatically when the page loads
 window.addEventListener("load", function () {
-    onTabLoad();
+  onTabLoad();
 });

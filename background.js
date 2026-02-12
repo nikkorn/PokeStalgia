@@ -1,9 +1,5 @@
 // Load dependent scripts (required in Manifest V3)
-importScripts(
-  "pokemon.js",
-  "pokemongenerator.js",
-  "pokedexrepository.js"
-);
+importScripts("pokemon.js", "pokemongenerator.js", "pokedexrepository.js");
 
 // The pokedex repository.
 var repository = new PokedexRepository();
@@ -15,7 +11,7 @@ var pokemonGenerator = new PokemonGenerator(repository);
  * Listen for tab loaded events.
  */
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-  if (changeInfo.status === 'complete') {
+  if (changeInfo.status === "complete") {
     chrome.tabs.sendMessage(tabId, { action: "tabLoad" }, function () {
       if (chrome.runtime.lastError) {
         // No content script in this tab — ignore
@@ -49,7 +45,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
       pokemon: typeof pokemon !== "undefined" ? pokemon : [],
       captureInfo: repository.getAllCaughtPokemonDetails(),
       trainerLevel: repository.getTrainerLevel(),
-      owned: repository.getOwnedCount()
+      owned: repository.getOwnedCount(),
     });
     return; // synchronous response
   }

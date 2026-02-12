@@ -1,132 +1,132 @@
 @font-face {
-   font-family: 'pokefont';
-   src: url("resources/fonts/Pokemon GB.ttf") format('truetype');
+  font-family: "pokefont";
+  src: url("resources/fonts/Pokemon GB.ttf") format("truetype");
 }
 
-::-webkit-scrollbar { 
-    display: none; 
+::-webkit-scrollbar {
+  display: none;
 }
 
 html {
-    width: 500px;
-    height: 280px;
+  width: 500px;
+  height: 280px;
 }
 
 body {
-    width: 500px;
-    height: 280px;
-    background-image: url("resources/pokedex_background.png");
-    background-size: 500px 300px;
-    background-repeat: no-repeat;
+  width: 500px;
+  height: 280px;
+  background-image: url("resources/pokedex_background.png");
+  background-size: 500px 300px;
+  background-repeat: no-repeat;
 }
 
 #pokedex-container {
-    font-family: 'pokefont', san-serif; 
-    width: 100%; 
-    height: 100%;
+  font-family: "pokefont", san-serif;
+  width: 100%;
+  height: 100%;
 }
 
 #pokedex-list-container {
-    width: 50%; 
-    height: 100%;
-    float: left;
-    overflow: auto;
+  width: 50%;
+  height: 100%;
+  float: left;
+  overflow: auto;
 }
 
 .pokedex-list-item {
-    width: 100%; 
-    height: 10%;
-    float: left;
+  width: 100%;
+  height: 10%;
+  float: left;
 }
 
 .pokedex-list-item p {
-    line-height: 28px;
-    margin: 0px;
+  line-height: 28px;
+  margin: 0px;
 }
 
 .pokedex-list-item-id-container {
-    font-size: 1.05em;
-    width: 20%; 
-    height: 100%;
-    float: left;
+  font-size: 1.05em;
+  width: 20%;
+  height: 100%;
+  float: left;
 }
 
 .pokedex-list-item-pokeball-container {
-    width: 5%; 
-    height: 100%;
-    float: left;
+  width: 5%;
+  height: 100%;
+  float: left;
 }
 
-.pokedex-list-item-pokeball-container.caught  {
-    background-image: url("resources/pokeball.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: center; 
+.pokedex-list-item-pokeball-container.caught {
+  background-image: url("resources/pokeball.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
 }
 
 .pokedex-list-item-name-container {
-    font-size: 1.1em;
-    width: 75%; 
-    height: 100%;
-    float: right;
+  font-size: 1.1em;
+  width: 75%;
+  height: 100%;
+  float: right;
 }
 
 #pokedex-details-container {
-    width: 45%; 
-    height: 100%;
-    float: right;
+  width: 45%;
+  height: 100%;
+  float: right;
 }
 
 #pokedex-trainer-details-container {
-    width: 100%; 
-    overflow: hidden;
+  width: 100%;
+  overflow: hidden;
 }
 
 #pokedex-pokemon-image-container {
-    padding-top: 15px;
-    width: 100%; 
+  padding-top: 15px;
+  width: 100%;
 }
 
 .pokedex-pokemon-image {
-    width: 30%;
-    margin-left: 28%;
+  width: 30%;
+  margin-left: 28%;
 }
 
 #pokedex-pokemon-details-container {
-    font-size: 0.9em;
-    line-height: 1.2em;
-    width: 95%; 
+  font-size: 0.9em;
+  line-height: 1.2em;
+  width: 95%;
 }
 
 #pokedex-pokemon-details-container-wrapper {
-    height: 45%;
-    width: 95%; 
-    overflow: auto;
+  height: 45%;
+  width: 95%;
+  overflow: auto;
 }
 
 .poke-info {
-    font-size: 0.85em;
-    line-height: 1.2em;
-    text-align: justify;
+  font-size: 0.85em;
+  line-height: 1.2em;
+  text-align: justify;
 }
 
 .spawn-container {
-    position: relative;
+  position: relative;
 }
 
 .capture-bar-container {
-    position: absolute;
-    top: -10px;
-    left: 0px;
-    width: 37px;
-    height: 10px;
-    background-repeat: no-repeat;
-    background-size: 37px 10px;
-    background-position: center; 
+  position: absolute;
+  top: -10px;
+  left: 0px;
+  width: 37px;
+  height: 10px;
+  background-repeat: no-repeat;
+  background-size: 37px 10px;
+  background-position: center;
 }
 
 .capture-bar-pointer {
-    position: absolute;
-    width: 7px;
-    height: 10px;
+  position: absolute;
+  width: 7px;
+  height: 10px;
 }

@@ -2,107 +2,105 @@
  * The capture bar of a spawned pokemon.
  */
 function CaptureBar(difficulty) {
-    var pointerPosition = 1;
-    var isPointerActive = false;
-    var captureBarElement;
-    var captureBarPointerElement;
-    var pointerMovementUnit;
-    var animationFrameId;
+  var pointerPosition = 1;
+  var isPointerActive = false;
+  var captureBarElement;
+  var captureBarPointerElement;
+  var pointerMovementUnit;
+  var animationFrameId;
 
-    var init = function () {
-        createCaptureBar();
-    };
+  var init = function () {
+    createCaptureBar();
+  };
 
-    var createCaptureBar = function () {
-        console.log(difficulty);
-        
-        captureBarElement = document.createElement("div");
-        captureBarElement.className = "capture-bar-container";
-        captureBarElement.style.position = "relative";
-        captureBarElement.style.overflow = "hidden";
-        captureBarElement.style.width = "40px";
-        captureBarElement.style.height = "15px";
-        captureBarElement.style.backgroundImage = "url(" + chrome.runtime.getURL(`resources/capture_bar_${difficulty}.png`) + ")";
-        captureBarElement.style.backgroundRepeat = "no-repeat";
-        captureBarElement.style.backgroundSize = "contain";
+  var createCaptureBar = function () {
+    console.log(difficulty);
 
-        captureBarPointerElement = document.createElement("img");
-        captureBarPointerElement.className = "capture-bar-pointer";
-        captureBarPointerElement.style.position = "absolute";
-        captureBarPointerElement.style.left = "0px";
-        captureBarPointerElement.style.top = "0px";
+    captureBarElement = document.createElement("div");
+    captureBarElement.className = "capture-bar-container";
+    captureBarElement.style.position = "relative";
+    captureBarElement.style.overflow = "hidden";
+    captureBarElement.style.width = "40px";
+    captureBarElement.style.height = "15px";
+    captureBarElement.style.backgroundImage =
+      "url(" +
+      chrome.runtime.getURL(`resources/capture_bar_${difficulty}.png`) +
+      ")";
+    captureBarElement.style.backgroundRepeat = "no-repeat";
+    captureBarElement.style.backgroundSize = "contain";
 
-        try {
-            captureBarPointerElement.src =
-                chrome.runtime.getURL("resources/capture_bar_pointer.png");
-            captureBarElement.appendChild(captureBarPointerElement);
-        } catch (e) {
-            return;
-        }
-    };
+    captureBarPointerElement = document.createElement("img");
+    captureBarPointerElement.className = "capture-bar-pointer";
+    captureBarPointerElement.style.position = "absolute";
+    captureBarPointerElement.style.left = "0px";
+    captureBarPointerElement.style.top = "0px";
 
-    var tick = function () {
-        if (!isPointerActive)
-            return;
+    try {
+      captureBarPointerElement.src = chrome.runtime.getURL(
+        "resources/capture_bar_pointer.png",
+      );
+      captureBarElement.appendChild(captureBarPointerElement);
+    } catch (e) {
+      return;
+    }
+  };
 
-        var barWidth = captureBarElement.offsetWidth;
-        var pointerWidth = captureBarPointerElement.offsetWidth;
+  var tick = function () {
+    if (!isPointerActive) return;
 
-        if (!barWidth || !pointerWidth) {
-            animationFrameId = requestAnimationFrame(tick);
-            return;
-        }
+    var barWidth = captureBarElement.offsetWidth;
+    var pointerWidth = captureBarPointerElement.offsetWidth;
 
-        if (!pointerMovementUnit) {
-            pointerMovementUnit = (barWidth - pointerWidth) / 50;
-        }
+    if (!barWidth || !pointerWidth) {
+      animationFrameId = requestAnimationFrame(tick);
+      return;
+    }
 
-        pointerPosition = (pointerPosition === 50)
-            ? 1
-            : pointerPosition + 1;
+    if (!pointerMovementUnit) {
+      pointerMovementUnit = (barWidth - pointerWidth) / 50;
+    }
 
-        var newLeft = pointerPosition * pointerMovementUnit;
+    pointerPosition = pointerPosition === 50 ? 1 : pointerPosition + 1;
 
-        // Clamp inside bounds
-        if (newLeft < 0)
-            newLeft = 0;
+    var newLeft = pointerPosition * pointerMovementUnit;
 
-        if (newLeft > barWidth - pointerWidth)
-            newLeft = barWidth - pointerWidth;
+    // Clamp inside bounds
+    if (newLeft < 0) newLeft = 0;
 
-        captureBarPointerElement.style.left = newLeft + "px";
+    if (newLeft > barWidth - pointerWidth) newLeft = barWidth - pointerWidth;
 
-        animationFrameId = requestAnimationFrame(tick);
-    };
+    captureBarPointerElement.style.left = newLeft + "px";
 
-    this.isInCapturePosition = function () {
-        switch (difficulty) {
-            case "easy":
-                return pointerPosition >= 35;
-            case "medium":
-                return pointerPosition >= 40;
-            case "hard":
-                return pointerPosition >= 45;
-            default:
-                return false;
-        }
-    };
+    animationFrameId = requestAnimationFrame(tick);
+  };
 
-    this.startPointerTick = function () {
-        isPointerActive = true;
-        pointerMovementUnit = null;
-        tick();
-    };
+  this.isInCapturePosition = function () {
+    switch (difficulty) {
+      case "easy":
+        return pointerPosition >= 35;
+      case "medium":
+        return pointerPosition >= 40;
+      case "hard":
+        return pointerPosition >= 45;
+      default:
+        return false;
+    }
+  };
 
-    this.stopPointerTick = function () {
-        isPointerActive = false;
-        if (animationFrameId)
-            cancelAnimationFrame(animationFrameId);
-    };
+  this.startPointerTick = function () {
+    isPointerActive = true;
+    pointerMovementUnit = null;
+    tick();
+  };
 
-    this.getCaptureBarElement = function () {
-        return captureBarElement;
-    };
+  this.stopPointerTick = function () {
+    isPointerActive = false;
+    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+  };
 
-    init();
-};
+  this.getCaptureBarElement = function () {
+    return captureBarElement;
+  };
+
+  init();
+}
